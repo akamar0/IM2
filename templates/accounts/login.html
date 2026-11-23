@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-aside">
+    <div class="eyebrow">CIT-U · UNIVERSITY SUPPORT</div>
+    <h1>One place for IT support and equipment services.</h1>
+    <p>Sign in to access your UniFix account. Report technical concerns and request university equipment from one organized portal.</p>
+    <div class="aside-points"><span>✓ Secure account access</span><span>✓ Role-based dashboards</span><span>✓ Personal request tracking</span></div>
+  </div>
+  <div class="form-card">
+    <div class="section-kicker">WELCOME BACK</div>
+    <h2>Log in to UniFix</h2>
+    <p class="muted">Enter your registered username and password.</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+      <div class="form-field"><label for="id_username">Username</label>{{ form.username }}{{ form.username.errors }}</div>
+      <div class="form-field"><label for="id_password">Password</label>{{ form.password }}{{ form.password.errors }}</div>
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <button class="button button-primary button-full" type="submit">Log in <span>→</span></button>
+    </form>
+    <p class="form-foot">Don't have an account? <a href="{% url 'accounts:register' %}">Create one</a></p>
+  </div>
+</section>
+{% endblock %}
