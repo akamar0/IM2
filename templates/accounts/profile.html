@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<section class="page-heading"><div class="section-kicker">ACCOUNT SETTINGS</div><h1>My Profile</h1><p class="muted">View the personal information saved in your UniFix account.</p></section>
+<div class="profile-layout">
+  <section class="profile-card profile-summary"><div class="avatar">{{ profile_user.first_name|default:profile_user.username|slice:':1'|upper }}</div><h2>{{ profile_user.display_name }}</h2><span class="role-pill">{{ profile_user.get_role_display }}</span><p class="muted">@{{ profile_user.username }}</p><a class="button button-primary button-full" href="{% url 'accounts:profile_edit' %}">Edit profile</a></section>
+  <section class="profile-card"><div class="section-kicker">PERSONAL INFORMATION</div><div class="detail-list">
+    <div><span>First name</span><strong>{{ profile_user.first_name|default:'Not provided' }}</strong></div>
+    <div><span>Last name</span><strong>{{ profile_user.last_name|default:'Not provided' }}</strong></div>
+    <div><span>Email address</span><strong>{{ profile_user.email }}</strong></div>
+    <div><span>Department / Office</span><strong>{{ profile_user.department|default:'Not provided' }}</strong></div>
+    <div><span>Contact number</span><strong>{{ profile_user.contact_number|default:'Not provided' }}</strong></div>
+    <div><span>Username</span><strong>{{ profile_user.username }}</strong></div>
+  </div></section>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ dashboard_title }}{% endblock %}
+{% block content %}
+<section class="dashboard-header">
+  <div><div class="section-kicker">UNIFIX WORKSPACE</div><h1>{{ dashboard_title }}</h1><p class="muted">{{ dashboard_subtitle }}</p></div>
+  <div class="role-pill">{{ role_label }}</div>
+</section>
+<section class="welcome-panel">
+  <div class="welcome-icon">U</div>
+  <div><div class="eyebrow">SIGNED IN AS {{ role_label|upper }}</div><h2>Welcome, {{ request.user.display_name }}.</h2><p>Your account is ready. The Account Feature is active; the operational modules will be added in the next development phases.</p></div>
+  <a class="button button-light" href="{% url 'accounts:profile' %}">View profile</a>
+</section>
+<div class="section-title-row"><div><div class="section-kicker">YOUR WORKSPACE</div><h2>Available modules</h2></div><span class="muted small-text">Project phase 1 · Account Feature</span></div>
+<div class="dashboard-grid">
+  {% for item in dashboard_cards %}
+    <article class="module-card"><div class="module-icon">{{ item.icon }}</div><h3>{{ item.title }}</h3><p>{{ item.description }}</p><span class="module-status">{{ item.status }}</span></article>
+  {% endfor %}
+</div>
+<div class="info-banner"><strong>Development note</strong><span>Technical ticket submission, ticket assignment, equipment borrowing, maintenance records, notifications, and analytics are planned UniFix modules. They are not included in this first Account Feature build yet.</span></div>
+{% endblock %}
