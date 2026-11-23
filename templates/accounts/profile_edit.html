@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+<section class="narrow-shell">
+  <div class="page-heading"><div class="section-kicker">ACCOUNT SETTINGS</div><h1>Edit profile</h1><p class="muted">Update only your own personal and contact information.</p></div>
+  <div class="form-card form-card-wide">
+    <form method="post" novalidate>{% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+      <div class="form-grid">
+        {% for field in form %}<div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}</div>{% endfor %}
+      </div>
+      <div class="button-row"><a class="button button-secondary" href="{% url 'accounts:profile' %}">Cancel</a><button class="button button-primary" type="submit">Save changes</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}

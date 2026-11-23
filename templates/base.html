@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}UniFix{% endblock %} | CIT-U</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/styles.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark">U</span><span>UniFix<small>CIT-U IT SUPPORT PORTAL</small></span></a>
+    {% if request.user.is_authenticated %}
+      <nav class="main-nav">
+        <a href="{% url 'accounts:dashboard_redirect' %}">Dashboard</a>
+        <a href="{% url 'accounts:profile' %}">My Profile</a>
+        {% if request.user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+      </nav>
+      <div class="account-nav">
+        <span class="user-chip">{{ request.user.display_name }}</span>
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="button button-ghost button-small" type="submit">Log out</button></form>
+      </div>
+    {% else %}
+      <nav class="main-nav"><a href="{% url 'accounts:login' %}">Log in</a><a class="nav-cta" href="{% url 'accounts:register' %}">Create account</a></nav>
+    {% endif %}
+  </header>
+
+  <main class="page-shell">
+    {% if messages %}
+      <div class="message-stack" aria-live="polite">
+        {% for message in messages %}<div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>{% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer"><span>UniFix · Cebu Institute of Technology – University</span><span>University IT Support & Equipment Services</span></footer>
+</body>
+</html>

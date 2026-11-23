@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<section class="narrow-shell">
+  <div class="page-heading"><div class="section-kicker">GET STARTED</div><h1>Create your UniFix account</h1><p class="muted">Register as university personnel to access the UniFix portal.</p></div>
+  <div class="form-card form-card-wide">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+      <div class="form-grid">
+        {% for field in form %}
+          <div class="form-field {% if field.name == 'password1' or field.name == 'password2' %}form-span-two{% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="help-text">{{ field.help_text|safe }}</div>{% endif %}
+            {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="role-note"><strong>Account role:</strong> University Personnel. Privileged IT roles are assigned only by an authorized system administrator.</div>
+      <button class="button button-primary button-full" type="submit">Create account <span>→</span></button>
+    </form>
+    <p class="form-foot">Already registered? <a href="{% url 'accounts:login' %}">Log in</a></p>
+  </div>
+</section>
+{% endblock %}
